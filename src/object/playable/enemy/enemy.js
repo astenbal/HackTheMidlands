@@ -12,10 +12,8 @@ class Enemy extends PlayableObject {
     update() {
         super.update();
         if (this.prevPos[0] == this.position[0] && this.prevPos[1] == this.position[1]) {
-            console.log('onoes')
             this.ticksSinceMove++;
             if (this.ticksSinceMove >= 120) {
-                console.log('teleporting')
                 var stuck = true;
                 while (stuck) {
                     var stillStuck = false;
@@ -27,7 +25,6 @@ class Enemy extends PlayableObject {
                             continue;
                         if (this.overlap(obj)) {
                             stillStuck = true;
-                            console.log(' onoesssss')
                             break;
                         }
                     }

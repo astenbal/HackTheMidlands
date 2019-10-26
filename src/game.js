@@ -48,7 +48,7 @@ class Game {
         }
 
         if(this.blocks.length <= 10){
-            if(this.ticksSinceNewBlock >= blockTimer){
+            if(this.ticksSinceNewBlock >= this.blockTimer){
                 for (var i = 0; i < 1; i++) {
                     var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
                     if (!suc)
