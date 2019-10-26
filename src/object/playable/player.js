@@ -5,7 +5,7 @@ class Player extends PlayableObject {
         this.bullets = [];
         this.keys = [];
         this.shouldShoot = false;
-        this.shootdelay = 80;
+        this.shootdelay = 60;
         this.ticksSinceShot = 0;
     }
 
@@ -63,7 +63,7 @@ class Player extends PlayableObject {
     }
 
     shoot(auto = true) {
-        if ((auto && this.ticksSinceShot >= this.shootdelay) || this.ticksSinceShot >= (this.shootdelay / 2)) {
+        if ((auto && this.ticksSinceShot >= this.shootdelay) || (!auto & this.ticksSinceShot >= (this.shootdelay / 3))) {
             this.shouldShoot = true;
             var xDis = game.mouseX - (this.position[0] + this.image.width);
             var yDis = game.mouseY - (this.position[1] + 2.5 * this.image.height);
