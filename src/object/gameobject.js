@@ -4,7 +4,7 @@ class GameObject{
         this.image = document.getElementById(spriteName);
         this.moveRectangle = [[0, window.innerWidth-this.image.width], [0, window.innerHeight - this.image.height - 50]];
         this.hitbox = {x: this.position[0], y: this.position[1], width: this.image.width, height: this.image.height}
-        console.log(this.hitbox);
+        this.hp = 100;
     }
 
     update(){
