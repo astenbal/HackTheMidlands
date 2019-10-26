@@ -1,24 +1,27 @@
-class Player extends PlayableObject{
-    constructor(position, spriteName, name, speed){
+class Player extends PlayableObject {
+    constructor(position, spriteName, name, speed) {
         super(position, spriteName, speed);
         this.name = name;
         this.bullets = [];
         this.keys = [];
+        this.shouldShoot = false;
+        this.shootdelay = 80;
+        this.ticksSinceShot = 0;
     }
 
-    handleKey(key){
+    handleKey(key) {
         if (key == 'w' || key == 'a' || key == 's' || key == 'd')
             this.move(key)
-        else if(key == ' ')
+        else if (key == ' ')
             this.shoot()
     }
 
-    move(key, shouldPush = true){
+    move(key, shouldPush = true) {
         const oldX = this.position[0]
         const oldY = this.position[1]
-        if(shouldPush)
+        if (shouldPush)
             this.keys.push(key);
-        switch(this.keys[this.keys.length-1]){
+        switch (this.keys[this.keys.length - 1]) {
             case 'w':
                 this.position[1] -= this.speed;
                 break;
@@ -26,64 +29,76 @@ class Player extends PlayableObject{
                 this.position[0] -= this.speed;
                 break;
             case 's':
-                this.position[1] += this.speed; 
+                this.position[1] += this.speed;
                 break;
             case 'd':
                 this.position[0] += this.speed;
                 break;
         }
-        if(this.position[0] < this.moveRectangle[0][0])
+        if (this.position[0] < this.moveRectangle[0][0])
             this.position[0] = this.moveRectangle[0][0]
-        if(this.position[0] > this.moveRectangle[0][1])
+        if (this.position[0] > this.moveRectangle[0][1])
             this.position[0] = this.moveRectangle[0][1]
-        if(this.position[1] < this.moveRectangle[1][0])
+        if (this.position[1] < this.moveRectangle[1][0])
             this.position[1] = this.moveRectangle[1][0]
-        if(this.position[1] > this.moveRectangle[1][1])
+        if (this.position[1] > this.moveRectangle[1][1])
             this.position[1] = this.moveRectangle[1][1]
         this.hitbox.x = this.position[0];
-        this.hitbox.y= this.position[1];
-        for(const object of game.objects){
-            if(object == this)
+        this.hitbox.y = this.position[1];
+        for (const object of game.objects) {
+            if (object == this)
                 continue;
-            if(this.overlap(object)){
-                if(this.position[0] != oldX)
+            if (this.overlap(object)) {
+                if (this.position[0] != oldX)
                     this.position[0] = oldX;
-                if(this.position[1] != oldY)
+                if (this.position[1] != oldY)
                     this.position[1] = oldY;
                 break;
             }
         }
     }
 
-    stop(e){
-        this.keys = this.keys.filter(function(value, index, arr) { return value != e})
+    stop(e) {
+        this.keys = this.keys.filter(function (value, index, arr) { return value != e })
     }
 
-    shoot(){
-        var xDis = game.mouseX - (this.position[0] + this.image.width);
-        var yDis = game.mouseY - (this.position[1] + 2.5 * this.image.height);
-        var xProp = Math.abs(xDis) / (Math.abs(xDis) + Math.abs(yDis));
-        var yProp = Math.abs(yDis) / (Math.abs(xDis) + Math.abs(yDis));
-        var xSpeed = 10 * (xDis > 0 ? xProp : -xProp);
-        var ySpeed = 10 * (yDis > 0 ? yProp : -yProp);
-        this.bullets.push(new Bullet([this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)], 'bullet', [xSpeed, ySpeed], 5, this))
+    shoot(auto = true) {
+        if ((auto && this.ticksSinceShot >= this.shootdelay) || this.ticksSinceShot >= (this.shootdelay / 2)) {
+            this.shouldShoot = true;
+            var xDis = game.mouseX - (this.position[0] + this.image.width);
+            var yDis = game.mouseY - (this.position[1] + 2.5 * this.image.height);
+            var xProp = Math.abs(xDis) / (Math.abs(xDis) + Math.abs(yDis));
+            var yProp = Math.abs(yDis) / (Math.abs(xDis) + Math.abs(yDis));
+            var xSpeed = 10 * (xDis > 0 ? xProp : -xProp);
+            var ySpeed = 10 * (yDis > 0 ? yProp : -yProp);
+            this.bullets.push(new Bullet([this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)], 'bullet', [xSpeed, ySpeed], 5, this))
+            this.ticksSinceShot = 0;
+        }
     }
 
-    update(){
+    stopshoot() {
+        this.shouldShoot = false;
+    }
+
+    update() {
         super.update();
-        if(this.keys.length != 0)
+        this.ticksSinceShot++;
+        if (this.keys.length != 0)
             this.move(this.key, false);
-        this.bullets = this.bullets.filter(function(value, index, arr){
-            return !value.dead;               
+        if (this.shouldShoot) {
+            this.shoot()
+        }
+        this.bullets = this.bullets.filter(function (value, index, arr) {
+            return !value.dead;
         });
-        for(const bullet of this.bullets){
+        for (const bullet of this.bullets) {
             bullet.update();
         }
     }
-    
-    draw(canvas){
+
+    draw(canvas) {
         super.draw(canvas)
-        for(const bullet of this.bullets){
+        for (const bullet of this.bullets) {
             bullet.draw(canvas);
         }
     }

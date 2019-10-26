@@ -5,9 +5,14 @@ class Game{
         this.canvas.height = window.innerHeight - 100;
         this.context = this.canvas.getContext('2d');
         this.player = new Player([0,0], 'player', 'player', 3);
-        this.objects = [this.player, new RandomEnemy([300, 500], 'enemy', 'Carl', 3)];
+        this.objects = [this.player];
         for(var i = 0; i < 20; i++){
             var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'));
+            if(!suc)
+                i--;
+        }
+        for(var i = 0; i < Math.ceil(Math.random()*3); i++){
+            var suc = this.addObject(new RandomEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'enemy', 'Carl', Math.ceil(Math.random()*5), Math.ceil((Math.random()*50)+50)));
             if(!suc)
                 i--;
         }
@@ -16,7 +21,8 @@ class Game{
         console.log(this.player);
         window.onkeydown = function(e){game.player.handleKey(e.key);};
         window.onkeyup = function(e){game.player.stop(e.key)};
-        window.onmousedown = function(e){game.player.shoot()};
+        window.onmousedown = function(e){game.player.shoot(false)};
+        window.onmouseup = function(e){game.player.stopshoot()};
         window.onmousemove = function(e){game.mouseX = e.screenX; game.mouseY = e.screenY; }
     }
 
