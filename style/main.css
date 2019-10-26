@@ -15,5 +15,14 @@
   /*Setting the height, width and colour of the elements background*/
   height:50px;
   width:100%;
-  background-color:#aaa;
+  background-color:#222;
+  color:white;
+}
+
+table{
+  width:100%;
+}
+
+#tblTitles{
+  text-align:center;
 }

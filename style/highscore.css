@@ -1,0 +1,18 @@
+#scoreTable{
+  height:auto;
+  padding:15px;
+  background-color:#ccc;
+}
+
+table{
+  table-layout:fixed;
+  width:100%;
+}
+
+#tblTitles{
+  text-align:center;
+}
+
+.score:nth-child(even){
+  background-color:#eee;
+}
