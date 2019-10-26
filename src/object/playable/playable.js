@@ -4,7 +4,6 @@ class PlayableObject extends GameObject{
     }
 
     update(){
-        this.hitbox.x = this.position[0];
-        this.hitbox.y= this.position[1];
+        
     }
 }
