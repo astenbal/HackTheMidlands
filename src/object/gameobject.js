@@ -1,5 +1,5 @@
 class GameObject{
-    constructor(position, spriteName, hp = 100, invulnerable = false){
+    constructor(position, spriteName, hp = 100, invulnerable = false, regen = true){
         this.position = position
         this.image = document.getElementById(spriteName);
         this.moveRectangle = [[0, window.innerWidth-this.image.width], [0, window.innerHeight - this.image.height - 50]];
@@ -7,10 +7,20 @@ class GameObject{
         this.maxhp = hp;
         this.hp = hp;
         this.invulnerable = invulnerable;
+        this.regen = regen;
+        this.ticksSinceRegen = 0;
+        this.regenAmount = 0.01;
+        this.regenSpeed = 100;
     }
 
     update(){
         //throw('NotImplemented');
+        if(this.regen && this.ticksSinceRegen >= this.regenSpeed){
+            this.hp += this.maxhp * this.regenAmount;
+            this.hp = Math.min(this.hp, this.maxhp);
+            this.ticksSinceRegen = 0;
+        }
+        this.ticksSinceRegen++;
     }
 
     draw(canvas){

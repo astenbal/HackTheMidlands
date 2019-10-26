@@ -5,7 +5,7 @@ class PlayableObject extends GameObject{
     }
 
     update(){
-        
+        super.update();
     }
 
     draw(canvas){
