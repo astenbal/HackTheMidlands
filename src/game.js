@@ -2,12 +2,12 @@ class Game{
     constructor(canvasID){
         this.canvas = document.getElementById(canvasID);
         this.canvas.width  = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.height = window.innerHeight - 50;
         this.context = this.canvas.getContext('2d');
         this.player = new Player([1,0], 'player', 'player');
-        this.objects = [this.player];
+        this.objects = [this.player, new Wall([100,100], 'wall')];
         console.log(this.player);
-        window.onkeyup = function(e){game.player.move(e)};
+        window.onkeydown = function(e){game.player.move(e)};
     }
 
     update(){
@@ -33,5 +33,5 @@ var game = new Game('game');
 function Main(){
     game.update();
     game.draw();
-    window.setTimeout(Main, 60);
+    window.setTimeout(Main, 1000 / 120);
 }
