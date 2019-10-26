@@ -3,16 +3,17 @@
       <!--Title on the tab-->
         <title>Hackatank</title>
         <!--Link to the css file-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel = "stylesheet" type = "text/css" href = "style/main.css" />
     </head>
 
     <body>
       <!--The top bar that displays the game name-->
       <nav id='topBar'>
-        <h1>Hackatank</h1>
-        <section id='navBar'>
-          <a href='index.html'>Game</a>
-          <a href='highscore.html'>Highscore</a>
+        <article id='topTitle' class='col-xs-12 col-sm-6'>Hackatank</article>
+        <section id='navBar' class='col-xs-12 col-sm-6'>
+          <a href='index.html'><article id='navOption'>Game</article></a>
+          <a href='highscore.html'><article id='navOption'>Highscore</article></a>
         </section>
       </nav>
       <!--Start of game code-->
@@ -27,4 +28,8 @@
       <script src="src/game.js"></script>
       <script>Main();</script>
     </body>
+
+    <footer>
+      Created by [Team name]
+    </footer>
 </html>
