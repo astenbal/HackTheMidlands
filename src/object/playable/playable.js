@@ -1,5 +1,5 @@
 class PlayableObject extends GameObject{
-    constructor(){
-        
+    constructor(position, spriteName){
+        super(position, spriteName)
     }
 }

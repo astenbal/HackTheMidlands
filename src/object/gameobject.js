@@ -1,13 +1,14 @@
 class GameObject{
-    constructor(position){
+    constructor(position, spriteName){
         this.position = position
+        this.spriteName = spriteName
     }
 
     update(){
-        throw('NotImplemented');
+        //throw('NotImplemented');
     }
 
-    draw(){
-        throw('NotImplemented');
+    draw(canvas){
+        canvas.drawImage(document.getElementById(this.spriteName), this.position[0], this.position[1])
     }
 }
