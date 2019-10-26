@@ -28,16 +28,18 @@
           </tr>
 
           <?php
-          $sql = "SELECT * FROM score ORDER BY score DESC";
+          $user = $_GET['user'];
+          $sql = "SELECT * FROM score WHERE name = '$user' ORDER BY score DESC";
           $res = $conn->query($sql);
           $counter = 1;
+          echo $user;
           while($row=$res->fetch_assoc()){
             $name = $row['name'];
             $score = $row['score'];
             echo'
             <tr class="score">
               <td> #'.$counter.'</td>
-              <td><a href="userscores.php?user='.$name.'">'.$name.'</a></td>
+              <td>'.$name.'</td>
               <td>'.$score.'</td>
             </tr>
             ';
