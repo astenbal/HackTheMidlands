@@ -35,9 +35,9 @@ class Game {
         for (const object of this.objects) {
             object.update();
         }
-        if (this.enemies.length == 0){
+        if (this.enemies.length == 0) {
             this.ticksSinceWaveEnd++;
-            if(this.ticksSinceWaveEnd >= this.waveTimer){
+            if (this.ticksSinceWaveEnd >= this.waveTimer) {
                 for (var i = 0; i < Math.ceil(Math.random() * 3); i++) {
                     var suc = this.addObject(new RandomEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'enemy', 'Carl', Math.ceil(Math.random() * 5), Math.ceil((Math.random() * 50) + 50)), 'enemy');
                     if (!suc)
@@ -47,8 +47,8 @@ class Game {
             }
         }
 
-        if(this.blocks.length <= 10){
-            if(this.ticksSinceNewBlock >= this.blockTimer){
+        if (this.blocks.length <= 10) {
+            if (this.ticksSinceNewBlock >= this.blockTimer) {
                 for (var i = 0; i < 1; i++) {
                     var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
                     if (!suc)
@@ -88,7 +88,15 @@ class Game {
 var game = new Game('game');
 
 function Main() {
-    game.update();
-    game.draw();
-    window.setTimeout(Main, 1000 / 120);
+    if (game.player.alive) {
+        game.update();
+        game.draw();
+        window.setTimeout(Main, 1000 / 120);
+    }
+    else{
+        game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
+        game.context.font = "32px Arial";
+        game.context.textAlign = "center";
+        game.context.fillText("Game over", game.canvas.width/2, game.canvas.height/2);
+    }
 }

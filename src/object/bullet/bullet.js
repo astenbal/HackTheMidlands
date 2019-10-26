@@ -20,6 +20,7 @@ class Bullet extends GameObject {
             if (this.overlap(object)) {
                 object.hp -= this.power;
                 if (object.hp <= 0) {
+                    object.alive = false;
                     objects = objects.filter(function (value, index, arr) {
                         return value != object;
                     });
