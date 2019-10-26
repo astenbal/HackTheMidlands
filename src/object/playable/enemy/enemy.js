@@ -1,21 +1,52 @@
-class Enemy extends PlayableObject{
-    constructor(location, spriteName, name, speed, shootDelay){
-        super(location, spriteName, speed);
+class Enemy extends PlayableObject {
+    constructor(position, spriteName, name, speed, shootDelay) {
+        super(position, spriteName, speed);
         this.name = name;
         this.bullets = [];
         this.shootDelay = shootDelay;
         this.shootCounter = 0;
+        this.ticksSinceMove = 0;
+        this.prevPos = [position[0], position[1]];
     }
 
-    update(){
+    update() {
         super.update();
-        this.bullets = this.bullets.filter(function(value, index, arr){
-            return !value.dead;               
+        if (this.prevPos[0] == this.position[0] && this.prevPos[1] == this.position[1]) {
+            console.log('onoes')
+            this.ticksSinceMove++;
+            if (this.ticksSinceMove >= 120) {
+                console.log('teleporting')
+                var stuck = true;
+                while (stuck) {
+                    var stillStuck = false;
+                    this.position = [Math.random() * game.canvas.width, Math.random() * game.canvas.height];
+                    this.hitbox.x = this.position[0];
+                    this.hitbox.y= this.position[1];
+                    for (const obj of game.objects) {
+                        if(obj == this)
+                            continue;
+                        if (this.overlap(obj)) {
+                            stillStuck = true;
+                            console.log(' onoesssss')
+                            break;
+                        }
+                    }
+                    stuck = stillStuck;
+                }
+                this.ticksSinceMove = 0;
+            }
+        }
+        else {
+            this.ticksSinceMove = 0;
+            this.prevPos = [this.position[0], this.position[1]];
+        }
+        this.bullets = this.bullets.filter(function (value, index, arr) {
+            return !value.dead;
         });
-        for(const bullet of this.bullets){
+        for (const bullet of this.bullets) {
             bullet.update();
         }
-        if(this.shootCounter == this.shootDelay){
+        if (this.shootCounter == this.shootDelay) {
             var xDis = game.player.position[0] - (this.position[0] + this.image.width);
             var yDis = game.player.position[1] - (this.position[1] + 0.5 * this.image.height);
             var xProp = Math.abs(xDis) / (Math.abs(xDis) + Math.abs(yDis));
@@ -27,10 +58,10 @@ class Enemy extends PlayableObject{
         }
         this.shootCounter++;
     }
-    
-    draw(canvas){
+
+    draw(canvas) {
         super.draw(canvas)
-        for(const bullet of this.bullets){
+        for (const bullet of this.bullets) {
             bullet.draw(canvas);
         }
     }
