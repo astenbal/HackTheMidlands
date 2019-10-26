@@ -8,10 +8,13 @@ class Player extends PlayableObject{
     move(key){
         switch(key.key){
             case 'w':
+                this.position[1]+= -10;
                 break;
             case 'a':
+                this.position[0]+= -10;
                 break;
-            case 's': 
+            case 's':
+                this.position[1]+= 10; 
                 break;
             case 'd':
                 this.position[0] += 10;
