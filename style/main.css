@@ -8,21 +8,27 @@
 
 /*TopBar styling*/
 #topBar{
-  display:flex;
-  /*Center the text within this element*/
-  justify-content:center;
-  align-items:center;
   /*Setting the height, width and colour of the elements background*/
   height:50px;
   width:100%;
   background-color:#222;
   color:white;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
 }
 
-table{
-  width:100%;
-}
-
-#tblTitles{
+#topBar h1{
   text-align:center;
+}
+
+#navBar{
+  display:flex;
+  justify-content: space-around;
+  width:50%;
+}
+
+#navBar a{
+  text-decoration:none;
+  color:white;
 }
