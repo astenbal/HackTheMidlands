@@ -1,0 +1,36 @@
+#splashMain{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+#splashText{
+  font-size:25px;
+}
+
+#splashNav{
+  display:flex;
+  flex-direction:row;
+}
+
+.splashOption{
+  height:150px;
+  width:150px;
+  background-color:rgba(0,0,0,1);
+  font-size:120%;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:15px;
+  color:white;
+  text-decoration:none;
+}
+
+.splashOption:hover{
+  background-color:rgba(0,0,0,0.8);
+  height:180px;
+  width:180px;
+  transition:all 0.3s;
+}
