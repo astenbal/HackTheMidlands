@@ -49,6 +49,12 @@
   align-items:center;
 }
 
+.mainArea{
+  min-height:calc(100% - 100px);
+  padding:15px;
+  background-color:#ccc;
+}
+
 footer{
   display:flex;
   justify-content:center;
