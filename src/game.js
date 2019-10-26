@@ -5,6 +5,8 @@ class Game{
         this.canvas.height = window.innerHeight - 100;
         this.context = this.canvas.getContext('2d');
         this.player = new Player([0,0], 'player', 'player', 3);
+        this.enemies = [];
+        this.blocks = [];
         this.objects = [this.player];
         for(var i = 0; i < 20; i++){
             var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'));
@@ -39,11 +41,19 @@ class Game{
         }
     }
     
-    addObject(object){
+    addObject(object, type){
         for(const obj of this.objects){
             if(object.overlap(obj)){
                 return false;
             }
+        }
+        switch(type){
+            case "enemy":
+                this.enemies.push(object);
+                break;
+            case "block":
+                this.blocks.push(object);
+                break;
         }
         this.objects.push(object)
         return true;

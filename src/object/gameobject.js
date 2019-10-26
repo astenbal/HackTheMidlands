@@ -1,10 +1,12 @@
 class GameObject{
-    constructor(position, spriteName){
+    constructor(position, spriteName, hp = 100, invulnerable = false){
         this.position = position
         this.image = document.getElementById(spriteName);
         this.moveRectangle = [[0, window.innerWidth-this.image.width], [0, window.innerHeight - this.image.height - 50]];
         this.hitbox = {x: this.position[0], y: this.position[1], width: this.image.width, height: this.image.height}
-        this.hp = 100;
+        this.maxhp = hp;
+        this.hp = hp;
+        this.invulnerable = invulnerable;
     }
 
     update(){

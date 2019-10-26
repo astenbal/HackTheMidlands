@@ -1,4 +1,4 @@
-class Bullet extends PlayableObject{
+class Bullet extends GameObject{
     constructor(position, spriteName, speed, power, parent){
         super(position, spriteName);
         this.speed = speed;
