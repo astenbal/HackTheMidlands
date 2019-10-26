@@ -8,6 +8,7 @@ class Game {
         this.enemies = [];
         this.blocks = [];
         this.objects = [this.player];
+        this.addObject(new FollowEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'folEnemy', 'Ben', 3, 75), 'enemy')
         for (var i = 0; i < 20; i++) {
             var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
             if (!suc)
@@ -47,7 +48,7 @@ class Game {
             }
         }
 
-        if(this.blocks.length <= 10){
+        if(this.blocks.length <= -1){
             if(this.ticksSinceNewBlock >= this.blockTimer){
                 for (var i = 0; i < 1; i++) {
                     var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
