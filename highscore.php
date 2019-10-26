@@ -1,3 +1,4 @@
+<?php include 'backend/connection.php'; ?>
 <html>
     <head>
       <!--Title on the tab-->
@@ -25,26 +26,24 @@
             <th>Name</th>
             <th>Score</th>
           </tr>
-          <tr class='score'>
-            <td>#1</td>
-            <td>Example</td>
-            <td>1,000,002</td>
-          </tr>
-          <tr>
-            <td>#2</td>
-            <td>Example2</td>
-            <td>1,000,000</td>
-          </tr>
-          <tr class='score'>
-            <td>#1</td>
-            <td>Example</td>
-            <td>1,000,002</td>
-          </tr>
-          <tr>
-            <td>#2</td>
-            <td>Example2</td>
-            <td>1,000,000</td>
-          </tr>
+
+          <?php
+          $sql = "SELECT * FROM score ORDER BY score DESC";
+          $res = $conn->query($sql);
+          $counter = 1;
+          while($row=$res->fetch_assoc()){
+            $name = $row['name'];
+            $score = $row['score'];
+            echo'
+            <tr class="score">
+              <td> #'.$counter.'</td>
+              <td>'.$name.'</td>
+              <td>'.$score.'</td>
+            </tr>
+            ';
+            $counter++;
+          }
+          ?>
         </table>
       </main>
       <footer>
