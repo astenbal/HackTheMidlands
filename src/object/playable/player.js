@@ -5,8 +5,22 @@ class Player extends PlayableObject{
         this.reverse = false;
     }
 
+    move(key){
+        switch(key.key){
+            case 'w':
+                break;
+            case 'a':
+                break;
+            case 's': 
+                break;
+            case 'd':
+                this.position[0] += 10;
+                break;
+        }
+    }
+
     update(){
-        if(this.position[0] >= window.innerWidth || this.position[0] <= 0){
+        /*if(this.position[0] >= window.innerWidth || this.position[0] <= 0){
             this.reverse = !this.reverse;
             this.position[1] += 30;
         }
@@ -16,7 +30,7 @@ class Player extends PlayableObject{
         }
         else{
             this.position[0]+= 10;
-        }
+        }*/
     }
 
 }

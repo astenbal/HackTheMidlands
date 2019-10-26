@@ -4,7 +4,10 @@ class Game{
         this.canvas.width  = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext('2d');
-        this.objects = [];
+        this.player = new Player([1,0], 'player', 'player');
+        this.objects = [this.player];
+        console.log(this.player);
+        window.onkeyup = function(e){game.player.move(e)};
     }
 
     update(){
