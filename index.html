@@ -1,16 +1,25 @@
 <html>
     <head>
-        <title>Our fabulous game</title>
+      <!--Title on the tab-->
+        <title>Hackatank</title>
+        <!--Link to the css file-->
+        <link rel = "stylesheet" type = "text/css" href = "style/main.css" />
     </head>
+
     <body>
-        <canvas id="game">
-        </canvas>
-    <div id="images" style="display:none">
-        <img id="player" src="images/tankBlue.png">
-    </div>
-    <script src="src/game.js"></script>
-    <script src="src/object/gameobject.js"></script>
-    <script src="src/object/playable/playable.js"></script>
-    <script src="src/object/playable/player.js"></script>
-</body>
+      <!--The top bar that displays the game name-->
+      <nav id='topBar'>
+        <h1>Hackatank</h1>
+      </nav>
+      <!--Start of game code-->
+      <canvas id="game">
+      </canvas>
+      <div id="images" style="display:none">
+          <img id="player" src="images/tankBlue.png">
+      </div>
+      <script src="src/game.js"></script>
+      <script src="src/object/gameobject.js"></script>
+      <script src="src/object/playable/playable.js"></script>
+      <script src="src/object/playable/player.js"></script>
+    </body>
 </html>

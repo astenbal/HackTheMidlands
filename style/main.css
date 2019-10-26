@@ -1,0 +1,19 @@
+/*Setting properties for everything*/
+*{
+  /*font for website*/
+  font-family:monospace;
+  margin:0;
+  padding:0;
+}
+
+/*TopBar styling*/
+#topBar{
+  display:flex;
+  /*Center the text within this element*/
+  justify-content:center;
+  align-items:center;
+  /*Setting the height, width and colour of the elements background*/
+  height:50px;
+  width:100%;
+  background-color:#aaa;
+}
