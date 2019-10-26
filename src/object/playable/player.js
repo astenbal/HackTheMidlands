@@ -3,8 +3,7 @@ class Player extends PlayableObject{
         super(position, spriteName, speed);
         this.name = name;
         this.bullets = [];
-        this.shouldMove = false;
-        this.key = undefined;
+        this.keys = [];
     }
 
     handleKey(key){
@@ -14,12 +13,12 @@ class Player extends PlayableObject{
             this.shoot()
     }
 
-    move(key){
+    move(key, shouldPush = true){
         const oldX = this.position[0]
         const oldY = this.position[1]
-        this.shouldMove = true;
-        this.key = key;
-        switch(key){
+        if(shouldPush)
+            this.keys.push(key);
+        switch(this.keys[this.keys.length-1]){
             case 'w':
                 this.position[1] -= this.speed;
                 break;
@@ -56,8 +55,8 @@ class Player extends PlayableObject{
         }
     }
 
-    stop(){
-        this.shouldMove = false;
+    stop(e){
+        this.keys = this.keys.filter(function(value, index, arr) { return value != e})
     }
 
     shoot(){
@@ -72,8 +71,8 @@ class Player extends PlayableObject{
 
     update(){
         super.update();
-        if(this.shouldMove)
-            this.move(this.key);
+        if(this.keys.length != 0)
+            this.move(this.key, false);
         this.bullets = this.bullets.filter(function(value, index, arr){
             return !value.dead;               
         });

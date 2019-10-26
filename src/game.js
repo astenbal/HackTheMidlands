@@ -15,7 +15,7 @@ class Game{
         this.mouseY = 0;
         console.log(this.player);
         window.onkeydown = function(e){game.player.handleKey(e.key);};
-        window.onkeyup = function(e){game.player.stop()};
+        window.onkeyup = function(e){game.player.stop(e.key)};
         window.onmousedown = function(e){game.player.shoot()};
         window.onmousemove = function(e){game.mouseX = e.screenX; game.mouseY = e.screenY; }
     }
