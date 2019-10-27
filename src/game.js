@@ -98,7 +98,7 @@ class Game {
 
 var multiplayer = true;
 var gameStarted = false;
-var socket = io('http://web1.apeli.me:3000/');
+var socket = io('http://htm.apeli.me:3000/');
 var game = new Game('game');
 var enemyID = undefined;
 
