@@ -16,7 +16,7 @@ class StatMenu extends MenuObject {
         canvas.textAlign = 'left'
         canvas.font = "20px Arial";
         canvas.drawImage(this.hpIcon, this.position[0] + 5, this.position[1] + 5);
-        game.context.fillText(this.owner.hp + '/' + this.owner.maxhp, this.position[0] + 55, this.position[1] + 45);
+        game.context.fillText(Math.floor(this.owner.hp) + '/' + this.owner.maxhp, this.position[0] + 55, this.position[1] + 45);
         canvas.drawImage(this.defIcon, this.position[0] + 125, this.position[1] + 5);
         game.context.fillText(this.owner.def + '/' + this.owner.maxdef, this.position[0] + 175, this.position[1] + 45);
         canvas.drawImage(this.speedIcon, this.position[0] + 5, this.position[1] + 50);

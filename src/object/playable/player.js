@@ -133,6 +133,7 @@ class Player extends PlayableObject {
         }
         if(this.prevHealth != this.hp && multiplayer){
             socket.emit('health', this.hp);
+            this.prevHealth = this.hp;
         }
     }
 
