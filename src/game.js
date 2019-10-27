@@ -98,7 +98,7 @@ class Game {
 
 if(multiplayer){
 var gameStarted = false;
-var socket = io('http://localhost:3000/');
+var socket = io('http://htm.apeli.me:3000/');
 var enemyID = undefined;
 }
 var game = new Game('game');
@@ -174,6 +174,10 @@ function Main() {
             enemy.maxstr = e[3][0];
             enemy.str = e[3][1];
             enemy.coins = e[4];
+        })
+        socket.on('health', function(e) { 
+            enemy = game.enemies.find(x => x.id == enemyID);
+            enemy.health = e;
         })
         socket.on('block', function(e) { game.addObject(new Wall(e[0], 'wall', 'wallBreaking'), 'block')})
     }
