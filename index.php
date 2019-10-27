@@ -1,3 +1,4 @@
+<?php include 'backend/connection.php'; if(!isset($_SESSION['token'])){header('Location: login.php');}?>
 <html>
     <head>
       <!--Title on the tab-->
@@ -9,13 +10,7 @@
 
     <body>
       <!--The top bar that displays the game name-->
-      <nav id='topBar'>
-        <article id='topTitle' class='col-xs-12 col-sm-6'>Hackatank</article>
-        <section id='navBar' class='col-xs-12 col-sm-6'>
-          <a href='index.html'><article id='navOption'>Game</article></a>
-          <a href='highscore.php'><article id='navOption'>Highscore</article></a>
-        </section>
-      </nav>
+      <?php include 'includes/nav.php';?>
       <!--Start of game code-->
       <canvas id="game">
       </canvas>
@@ -50,7 +45,5 @@
       <script src="src/game.js"></script>
       <script>Main();</script>
     </body>
-    <footer>
-      Created by [Team name]
-    </footer>
+    <?php include ("includes/footer.php"); ?>
 </html>

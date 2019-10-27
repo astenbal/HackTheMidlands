@@ -11,7 +11,7 @@ if(!empty($_POST['login'])){
     if($verPass){
       $_SESSION['token']=true;
       $_SESSION['username']=$user;
-      echo '<a href="splash.php">Lets play</a> ';
+      header('Location: splash.php');
     }
     else{
       echo'Password incorrect.';
