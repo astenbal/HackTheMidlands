@@ -10,6 +10,8 @@ class Game {
         this.objects = [this.player];
         this.menu = [new StatMenu([0, 0], this.player, 'def', 'str', 'speed', 'hp', 'coin')];
         this.addObject(new FollowEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'folEnemy', 'Ben', 3, 75), 'enemy')
+        this.addObject(new BulletEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'bulEnemy', 'Jeff', 3, 75), 'enemy')
+
         for (var i = 0; i < 20; i++) {
             var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall', 'wallBreaking'), 'block');
             if (!suc)
