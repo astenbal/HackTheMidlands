@@ -6,8 +6,13 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-const gamestate = {
-    players: {}
+var gamestates = [];
+
+class GameState {
+    constructor(){
+        this.players = [];
+        this.socket_id = [];
+    }
 }
 
 class Player {
@@ -27,24 +32,34 @@ class Player {
 }
 
 var dim = [1920, 907];
-var startLocations = [[100, 100], [100, 780], [1700, 100], [1700, 780]];
 
 io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('disconnect', function () {
         console.log('user disconnected');
         socket.broadcast.emit('remplayer', socket.id);
-        delete gamestate.players[socket.id]
+        var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
+        if(gamestate != undefined)
+            delete gamestate.players[socket.id]
     });
     socket.on('startup', function (e) {
-        keys = Object.keys(gamestate.players);
-        gamestate.players[socket.id] = new Player(startLocations[keys.length], e);
-        socket.broadcast.emit('newplayer', socket.id + ' ' + gamestate.players[socket.id].position);
-        for (const key of keys) {
-            socket.emit('newplayer', key + ' ' + gamestate.players[key].position)
+        var gamestate = gamestates.find(x => Object.keys(x.players).length < 2);
+        if(!gamestate){
+            gamestate = new GameState();
+            gamestates.push(gamestate);
         }
-        socket.emit('loc', startLocations[keys.length])
-        if (keys.length == 1) {
+        gamestate.players[socket.id] = new Player([(Math.random() * 1600) + 100, (Math.random() * 680) + 100], e);
+        gamestate.socket_id.push(socket.id);
+        var opponent = gamestate.socket_id.filter(x => x != socket.id);
+        if(opponent)
+            io.to(opponent).emit('newplayer', socket.id + ' ' + gamestate.players[socket.id].position)
+        keys = Object.keys(gamestate.players);
+        for (const key of keys) {
+            if(key != socket.id)
+                socket.emit('newplayer', key + ' ' + gamestate.players[key].position)
+        }
+        socket.emit('loc', gamestate.players[socket.id].position)
+        if (keys.length == 2) {
             io.emit('gamestart');
             for (var i = 0; i < 20; i++) {
                 io.emit('block', [[Math.random() * dim[0], Math.random() * dim[1]]])
@@ -53,15 +68,21 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('loc', function (e) {
+        var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
+        var opponent = gamestate.socket_id.filter(x => x != socket.id);
         gamestate.players[socket.id].position = e;
-        socket.broadcast.emit('oloc', socket.id + ' ' + gamestate.players[socket.id].position)
+        io.to(opponent).emit('oloc', socket.id + ' ' + gamestate.players[socket.id].position)
     });
     socket.on('bul', function (e) {
+        var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
+        var opponent = gamestate.socket_id.filter(x => x != socket.id);
         gamestate.players[socket.id].position = e;
-        socket.broadcast.emit('obulID', socket.id);
-        socket.broadcast.emit('obulData', e);
+        io.to(opponent).emit('obulID', socket.id);
+        io.to(opponent).emit('obulData', e);
     });
     socket.on('stats', function(e){
+        var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
+        var opponent = gamestate.socket_id.filter(x => x != socket.id);
         var player = gamestate.players[socket.id];
         player.maxhealth = e[0][0];
         player.health = e[0][1];
@@ -72,8 +93,8 @@ io.on('connection', function (socket) {
         player.maxstr = e[3][0];
         player.str = e[3][1];
         player.coins = e[4]
-        socket.broadcast.emit('obulID', socket.id);
-        socket.broadcast.emit('stats', e);
+        io.to(opponent).emit('obulID', socket.id);
+        io.to(opponent).emit('stats', e);
     })
 
 });

@@ -96,11 +96,12 @@ class Game {
     }
 }
 
-var multiplayer = true;
+if(multiplayer){
 var gameStarted = false;
 var socket = io('http://localhost:3000/');
-var game = new Game('game');
 var enemyID = undefined;
+}
+var game = new Game('game');
 
 function Main() {
     if (!multiplayer || gameStarted) {
