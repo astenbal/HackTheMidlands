@@ -1,7 +1,13 @@
 class PlayableObject extends GameObject{
-    constructor(position, spriteName, speed){
+    constructor(position, spriteName, speed, str = 5, def = 0){
         super(position, spriteName)
         this.speed = speed;
+        this.maxspeed = speed;
+        this.str = str;
+        this.maxstr = str;
+        this.def = def;
+        this.maxdef = def;
+        this.coins = 0;
     }
 
     update(){

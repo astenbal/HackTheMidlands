@@ -18,8 +18,12 @@ class Bullet extends GameObject {
             if (object == this.parent)
                 continue;
             if (this.overlap(object)) {
-                object.hp -= this.power;
+                object.hp -= this.power - object.def;
                 if (object.hp <= 0) {
+                    if(object instanceof Wall)
+                        this.parent.coins += 50;
+                    else if(object instanceof Enemy)
+                        this.parent.coins += 100;
                     object.alive = false;
                     objects = objects.filter(function (value, index, arr) {
                         return value != object;
