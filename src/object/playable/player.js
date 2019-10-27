@@ -85,6 +85,7 @@ class Player extends PlayableObject {
             }
             this.coins -= 50 + this.amountOfUpgrades * 10;
             this.amountOfUpgrades++;
+            socket.emit('stats', [[this.maxhp, this.hp], [this.maxdef, this.def], [this.maxspeed, this.speed], [this.maxstr, this.str], this.coins]);
         }
     }
 
