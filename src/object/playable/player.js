@@ -8,7 +8,7 @@ class Player extends PlayableObject {
         this.shootdelay = 60;
         this.ticksSinceShot = 0;
         this.amountOfUpgrades = 0;
-        this.prevHealth = hp;
+        this.prevHealth = this.hp;
     }
 
     handleKey(key) {

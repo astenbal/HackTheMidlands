@@ -33,7 +33,7 @@ else{
           <img id="def" src="images/defence.png">
           <img id="str" src="images/strength.png">
           <img id="speed" src="images/speed.png">
-          <img id="hp" src="images/health.png">
+          <img id="hitp" src="images/health.png">
           <img id="coin" src="images/coin.png">
       </div>
       <script>var url = window.location.href;

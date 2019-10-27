@@ -9,7 +9,7 @@ class Game {
         this.enemies = [];
         this.blocks = [];
         this.objects = [this.player];
-        this.menu = [new StatMenu([0, 0], this.player, 'def', 'str', 'speed', 'hp', 'coin')];
+        this.menu = [new StatMenu([0, 0], this.player, 'def', 'str', 'speed', 'hitp', 'coin')];
         if (!multiplayer) {
             this.addObject(new FollowEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'folEnemy', 'Ben', 3, 75), 'enemy')
             this.addObject(new BulletEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'bulEnemy', 'Jeff', 3, 75), 'enemy')
