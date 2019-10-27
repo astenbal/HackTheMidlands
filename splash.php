@@ -1,3 +1,5 @@
+<?php include 'backend/connection.php'; if(!isset($_SESSION['token'])){header('Location: login.php');}?>
+
 <html>
     <head>
       <!--Title on the tab-->
@@ -16,12 +18,10 @@
       <main class='mainArea' id='splashMain'>
         <article id='splashText'>A tank game created in 24 hours!</article>
         <section id='splashNav'>
-          <a href='index.html'><article class='splashOption'>Play</article></a>
+          <a href='index.php'><article class='splashOption'>Play</article></a>
           <a href='highscore.php'><article class='splashOption'>Highscores</article></a>
         </section>
       </main>
-      <footer>
-        Created by [Team name]
-      </footer>
+      <?php include ("includes/footer.php"); ?>
     </body>
 </html>

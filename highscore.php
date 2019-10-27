@@ -1,4 +1,5 @@
-<?php include 'backend/connection.php'; ?>
+<?php include 'backend/connection.php'; if(!isset($_SESSION['token'])){header('Location: login.php');}?>
+
 <html>
     <head>
       <!--Title on the tab-->
@@ -11,13 +12,8 @@
 
     <body>
       <!--The top bar that displays the game name-->
-      <nav id='topBar'>
-        <article id='topTitle' class='col-xs-12 col-sm-6'>Hackatank</article>
-        <section id='navBar' class='col-xs-12 col-sm-6'>
-          <a href='index.html'><article id='navOption'>Game</article></a>
-          <a href='highscore.html'><article id='navOption'>Highscore</article></a>
-        </section>
-      </nav>
+      <?php include 'includes/nav.php';?>
+
       <main class='mainArea'>
         <article id='tableTitle'>Highscores</article>
         <table>
@@ -46,8 +42,6 @@
           ?>
         </table>
       </main>
-      <footer>
-        Created by [Team name]
-      </footer>
+      <?php include ("includes/footer.php"); ?>
     </body>
 </html>
