@@ -7,7 +7,7 @@
 
 <body>
   <main>
-    <article id='loginText'>Login</article>
+    <article id='loginText'>Login un test password test</article>
     <form method='post'>
       <input type='text' name='username' placeholder='Username...' required maxlength='12'>
       <input type='password' name='password' placeholder='Password...' required>

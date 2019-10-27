@@ -181,5 +181,9 @@ function Main() {
             enemy.health = e;
         })
         socket.on('block', function(e) { game.addObject(new Wall(e[0], 'wall', 'wallBreaking'), 'block')})
+        game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
+            game.context.font = "32px Arial";
+            game.context.textAlign = "center";
+            game.context.fillText("Waiting for a second player", game.canvas.width / 2, game.canvas.height / 2);
     }
 }
