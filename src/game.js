@@ -9,6 +9,8 @@ class Game {
         this.blocks = [];
         this.objects = [this.player];
         this.addObject(new FollowEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'folEnemy', 'Ben', 3, 75), 'enemy')
+        this.addObject(new BulletEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'bulEnemy', 'Jeff', 3, 75), 'enemy')
+
         for (var i = 0; i < 20; i++) {
             var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
             if (!suc)

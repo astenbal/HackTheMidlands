@@ -43,7 +43,7 @@ class Enemy extends PlayableObject {
         for (const bullet of this.bullets) {
             bullet.update();
         }
-        if (this.shootCounter == this.shootDelay) {
+        if (this.shootCounter == this.shootDelay*2) {
             var xDis = game.player.position[0] - (this.position[0] + this.image.width);
             var yDis = game.player.position[1] - (this.position[1] + 0.5 * this.image.height);
             var xProp = Math.abs(xDis) / (Math.abs(xDis) + Math.abs(yDis));
