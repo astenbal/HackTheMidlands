@@ -18,6 +18,8 @@ class Bullet extends GameObject {
             if (object == this.parent)
                 continue;
             if (this.overlap(object)) {
+                if(this.parent instanceof MultiPlayer)
+                    console.log(this.hitbox)
                 object.hp -= this.power - object.def;
                 if (object.hp <= 0) {
                     if(object instanceof Wall)

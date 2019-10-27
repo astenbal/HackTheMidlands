@@ -38,6 +38,8 @@ class Player extends PlayableObject {
                 this.position[0] += this.speed;
                 break;
         }
+        if(multiplayer)
+            socket.emit('loc', this.position);
         if (this.position[0] < this.moveRectangle[0][0])
             this.position[0] = this.moveRectangle[0][0]
         if (this.position[0] > this.moveRectangle[0][1])
@@ -99,8 +101,13 @@ class Player extends PlayableObject {
             var yProp = Math.abs(yDis) / (Math.abs(xDis) + Math.abs(yDis));
             var xSpeed = 10 * (xDis > 0 ? xProp : -xProp);
             var ySpeed = 10 * (yDis > 0 ? yProp : -yProp);
-            this.bullets.push(new Bullet([this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)], 'bullet', [xSpeed, ySpeed], this.str, this))
+            var bulPos = [this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)];
+            var bulSpeed = [xSpeed, ySpeed];
+            this.bullets.push(new Bullet(bulPos, 'bullet', bulSpeed, this.str, this))
             this.ticksSinceShot = 0;
+            if(multiplayer){
+                socket.emit('bul', [bulPos,bulSpeed, this.str]);
+            }
         }
     }
 
