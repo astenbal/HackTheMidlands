@@ -1,0 +1,41 @@
+*{
+  font-family:monospace;
+}
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-color:#44e;
+}
+
+main{
+  background-color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+
+#loginText{
+  font-size:140%;
+}
+
+form{
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+form input[type='text'], input[type='password']{
+  font-size:25px;
+  margin:5px;
+  width:300px;
+}
+
+form input[type='submit']{
+  width:150px;
+}

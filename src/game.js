@@ -1,5 +1,6 @@
 class Game {
     constructor(canvasID) {
+        this.gameScore = 0;
         this.canvas = document.getElementById(canvasID);
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight - 100;
@@ -36,6 +37,7 @@ class Game {
     }
 
     update() {
+        this.gameScore++;
         for (const object of this.objects) {
             object.update();
         }
@@ -103,6 +105,6 @@ function Main() {
         game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
         game.context.font = "32px Arial";
         game.context.textAlign = "center";
-        game.context.fillText("Game over", game.canvas.width/2, game.canvas.height/2);
+        game.context.fillText("Game over! Your score was: " + game.gameScore, game.canvas.width/2, game.canvas.height/2);
     }
 }

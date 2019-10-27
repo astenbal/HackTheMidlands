@@ -15,7 +15,7 @@
         <article id='topTitle' class='col-xs-12 col-sm-6'>Hackatank</article>
         <section id='navBar' class='col-xs-12 col-sm-6'>
           <a href='index.html'><article id='navOption'>Game</article></a>
-          <a href='highscore.html'><article id='navOption'>Highscore</article></a>
+          <a href='highscore.php'><article id='navOption'>Highscore</article></a>
         </section>
       </nav>
       <main class='mainArea'>
