@@ -19,6 +19,7 @@
         <article id='splashText'>A tank game created in 24 hours!</article>
         <section id='splashNav'>
           <a href='index.php'><article class='splashOption'>Play</article></a>
+          <a href='index.php?multiplayer'><article class='splashOption'>Multiplayer</article></a>
           <a href='highscore.php'><article class='splashOption'>Highscores</article></a>
         </section>
       </main>

@@ -96,19 +96,27 @@ class Game {
     }
 }
 
-var multiplayer = true;
+if(multiplayer){
 var gameStarted = false;
-var socket = io('https://web1.apeli.me:3000/');
-var game = new Game('game');
+var socket = io('http://localhost:3000/');
 var enemyID = undefined;
+}
+var game = new Game('game');
 
 function Main() {
     if (!multiplayer || gameStarted) {
-        if (game.player.alive) {
+        if (game.player.alive  && ((multiplayer && game.enemies.length > 0) || !multiplayer)) {
             game.update();
             game.draw();
             window.setTimeout(Main, 1000 / 120);
         }
+        else if(multiplayer && game.player.alive){
+            game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
+            game.context.font = "32px Arial";
+            game.context.textAlign = "center";
+            game.context.fillText("You won! " + game.gameScore, game.canvas.width / 2, game.canvas.height / 2);
+        }
+
         else {
             game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
             game.context.font = "32px Arial";
@@ -155,8 +163,18 @@ function Main() {
         socket.on('obulData', function (e) {
             game.enemies.find(x => x.id == enemyID).shoot(e[0], e[1], e[2]);
         })
+        socket.on('stats', function(e){
+            enemy = game.enemies.find(x => x.id == enemyID);
+            enemy.maxhp = e[0][0];
+            enemy.hp = e[0][1];
+            enemy.maxdef = e[1][0];
+            enemy.def = e[1][1];
+            enemy.maxspeed = e[2][0];
+            enemy.speed = e[2][1];
+            enemy.maxstr = e[3][0];
+            enemy.str = e[3][1];
+            enemy.coins = e[4];
+        })
+        socket.on('block', function(e) { game.addObject(new Wall(e[0], 'wall', 'wallBreaking'), 'block')})
     }
-}
-
-function MultiMain() {
 }
