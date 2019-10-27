@@ -17,6 +17,11 @@
   flex-wrap:wrap;
 }
 
+#topBar a{
+  text-decoration:none;
+  color:inherit;
+}
+
 #topTitle{
   text-align:center;
   display:flex;
