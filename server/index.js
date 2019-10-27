@@ -101,6 +101,13 @@ io.on('connection', function (socket) {
         io.to(opponent).emit('stats', e);
     })
 
+    socket.on('health', function(e){
+        var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
+        var opponent = gamestate.socket_id.filter(x => x != socket.id);
+        gamestate.players[socket.id].health = e;
+        io.to(opponent).emit('health', e);
+    });
+
 });
 
 http.listen(3000, function () {

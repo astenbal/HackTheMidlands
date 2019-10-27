@@ -8,6 +8,7 @@ class Player extends PlayableObject {
         this.shootdelay = 60;
         this.ticksSinceShot = 0;
         this.amountOfUpgrades = 0;
+        this.prevHealth = hp;
     }
 
     handleKey(key) {
@@ -129,6 +130,10 @@ class Player extends PlayableObject {
         });
         for (const bullet of this.bullets) {
             bullet.update();
+        }
+        if(this.prevHealth != this.hp && multiplayer){
+            socket.emit('health', this.hp);
+            this.prevHealth = this.hp;
         }
     }
 
