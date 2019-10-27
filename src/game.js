@@ -122,6 +122,7 @@ function Main() {
             game.context.font = "32px Arial";
             game.context.textAlign = "center";
             game.context.fillText("Game over! Your score was: " + game.gameScore, game.canvas.width / 2, game.canvas.height / 2);
+            window.location.replace("overset.php?score=" + game.gameScore);
         }
     }
     else if (multiplayer && !gameStarted) {
