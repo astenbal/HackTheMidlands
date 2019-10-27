@@ -39,8 +39,11 @@ io.on('connection', function (socket) {
         console.log('user disconnected');
         socket.broadcast.emit('remplayer', socket.id);
         var gamestate = gamestates.find(x=>x.players[socket.id] instanceof Player);
-        if(gamestate != undefined)
+        if(gamestate != undefined){
             delete gamestate.players[socket.id]
+            gamestate.socket_id = gamestate.socket_id.filter(x => x != socket.id);
+        }
+
     });
     socket.on('startup', function (e) {
         var gamestate = gamestates.find(x => Object.keys(x.players).length < 2);
@@ -51,8 +54,9 @@ io.on('connection', function (socket) {
         gamestate.players[socket.id] = new Player([(Math.random() * 1600) + 100, (Math.random() * 680) + 100], e);
         gamestate.socket_id.push(socket.id);
         var opponent = gamestate.socket_id.filter(x => x != socket.id);
-        if(opponent)
+        if(opponent){
             io.to(opponent).emit('newplayer', socket.id + ' ' + gamestate.players[socket.id].position)
+        }
         keys = Object.keys(gamestate.players);
         for (const key of keys) {
             if(key != socket.id)
