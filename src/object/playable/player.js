@@ -7,6 +7,7 @@ class Player extends PlayableObject {
         this.shouldShoot = false;
         this.shootdelay = 60;
         this.ticksSinceShot = 0;
+        this.amountOfUpgrades = 0;
     }
 
     handleKey(key) {
@@ -14,6 +15,8 @@ class Player extends PlayableObject {
             this.move(key)
         else if (key == ' ')
             this.shoot()
+        else if (key == 'v' || key == 'b' || key == 'n' || key == 'm')
+            this.upgrade(key);
     }
 
     move(key, shouldPush = true) {
@@ -58,6 +61,31 @@ class Player extends PlayableObject {
         }
     }
 
+    upgrade(key) {
+        if (this.coins >= 50 + this.amountOfUpgrades * 10) {
+            switch (key) {
+                case 'v':
+                    this.maxhp += 15;
+                    this.hp += 15;
+                    break;
+                case 'b':
+                    this.maxdef += 1;
+                    this.def += 1;
+                    break;
+                case 'n':
+                    this.maxspeed += 0.5;
+                    this.speed += 0.5;
+                    break;
+                case 'm':
+                    this.maxstr += 1;
+                    this.str += 1;
+                    break;
+            }
+            this.coins -= 50 + this.amountOfUpgrades * 10;
+            this.amountOfUpgrades++;
+        }
+    }
+
     stop(e) {
         this.keys = this.keys.filter(function (value, index, arr) { return value != e })
     }
@@ -71,7 +99,7 @@ class Player extends PlayableObject {
             var yProp = Math.abs(yDis) / (Math.abs(xDis) + Math.abs(yDis));
             var xSpeed = 10 * (xDis > 0 ? xProp : -xProp);
             var ySpeed = 10 * (yDis > 0 ? yProp : -yProp);
-            this.bullets.push(new Bullet([this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)], 'bullet', [xSpeed, ySpeed], 5, this))
+            this.bullets.push(new Bullet([this.position[0] + this.image.width, this.position[1] + (this.image.height / 2)], 'bullet', [xSpeed, ySpeed], this.str, this))
             this.ticksSinceShot = 0;
         }
     }

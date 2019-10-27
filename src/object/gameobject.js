@@ -11,6 +11,7 @@ class GameObject{
         this.ticksSinceRegen = 0;
         this.regenAmount = 0.01;
         this.regenSpeed = 100;
+        this.alive = true;
     }
 
     update(){

@@ -8,6 +8,8 @@ class FollowEnemy extends Enemy{
 
     update(){
         super.update();
+        this.oldX = this.position[0]
+        this.oldY = this.position[1]
         var xdif = game.player.position[0] - this.position[0];
         var ydif = game.player.position[1] - this.position[1];
 

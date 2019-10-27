@@ -8,11 +8,12 @@ class Game {
         this.enemies = [];
         this.blocks = [];
         this.objects = [this.player];
+        this.menu = [new StatMenu([0, 0], this.player, 'def', 'str', 'speed', 'hp', 'coin')];
         this.addObject(new FollowEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'folEnemy', 'Ben', 3, 75), 'enemy')
         this.addObject(new BulletEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'bulEnemy', 'Jeff', 3, 75), 'enemy')
 
         for (var i = 0; i < 20; i++) {
-            var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
+            var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall', 'wallBreaking'), 'block');
             if (!suc)
                 i--;
         }
@@ -38,9 +39,9 @@ class Game {
         for (const object of this.objects) {
             object.update();
         }
-        if (this.enemies.length == 0){
+        if (this.enemies.length == 0) {
             this.ticksSinceWaveEnd++;
-            if(this.ticksSinceWaveEnd >= this.waveTimer){
+            if (this.ticksSinceWaveEnd >= this.waveTimer) {
                 for (var i = 0; i < Math.ceil(Math.random() * 3); i++) {
                     var suc = this.addObject(new RandomEnemy([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'enemy', 'Carl', Math.ceil(Math.random() * 5), Math.ceil((Math.random() * 50) + 50)), 'enemy');
                     if (!suc)
@@ -49,11 +50,10 @@ class Game {
                 this.ticksSinceWaveEnd = 0;
             }
         }
-
-        if(this.blocks.length <= -1){
-            if(this.ticksSinceNewBlock >= this.blockTimer){
+        if (this.blocks.length <= 10) {
+            if (this.ticksSinceNewBlock >= this.blockTimer) {
                 for (var i = 0; i < 1; i++) {
-                    var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall'), 'block');
+                    var suc = this.addObject(new Wall([Math.random() * this.canvas.width, Math.random() * this.canvas.height], 'wall', 'wallBreaking'), 'block');
                     if (!suc)
                         i--;
                 }
@@ -65,6 +65,9 @@ class Game {
     draw() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         for (const object of this.objects) {
+            object.draw(this.context);
+        }
+        for (const object of this.menu) {
             object.draw(this.context);
         }
     }
@@ -91,7 +94,15 @@ class Game {
 var game = new Game('game');
 
 function Main() {
-    game.update();
-    game.draw();
-    window.setTimeout(Main, 1000 / 120);
+    if (game.player.alive) {
+        game.update();
+        game.draw();
+        window.setTimeout(Main, 1000 / 120);
+    }
+    else{
+        game.context.clearRect(0, 0, game.canvas.width, game.canvas.height);
+        game.context.font = "32px Arial";
+        game.context.textAlign = "center";
+        game.context.fillText("Game over", game.canvas.width/2, game.canvas.height/2);
+    }
 }
