@@ -98,7 +98,7 @@ class Game {
 
 if(multiplayer){
 var gameStarted = false;
-var socket = io('http://localhost:3000/');
+var socket = io('http://htm.apeli.me:3000');
 var enemyID = undefined;
 }
 var game = new Game('game');
@@ -122,6 +122,7 @@ function Main() {
             game.context.font = "32px Arial";
             game.context.textAlign = "center";
             game.context.fillText("Game over! Your score was: " + game.gameScore, game.canvas.width / 2, game.canvas.height / 2);
+            window.location.replace("overset.php?score=" + game.gameScore);
         }
     }
     else if (multiplayer && !gameStarted) {

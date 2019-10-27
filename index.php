@@ -1,4 +1,12 @@
 <?php include 'backend/connection.php'; if(!isset($_SESSION['token'])){header('Location: login.php');}?>
+<?php
+if(isset($_GET['multiplayer'])){
+  $_SESSION['multi']=true;
+}
+else{
+  $_SESSION['multi']=false;
+}
+?>
 <html>
     <head>
       <!--Title on the tab-->
@@ -28,6 +36,9 @@
           <img id="hp" src="images/health.png">
           <img id="coin" src="images/coin.png">
       </div>
+      <script>var url = window.location.href;
+        var multiplayer = url.includes('multiplayer');
+      </script>
       <script src= "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
       <script src="src/object/gameobject.js"></script>
       <script src="src/object/obstacle/obstacle.js"></script>
