@@ -1,0 +1,65 @@
+/*Setting properties for everything*/
+*{
+  /*font for website*/
+  font-family:monospace;
+  margin:0;
+  padding:0;
+}
+
+/*TopBar styling*/
+#topBar{
+  /*Setting the height, width and colour of the elements background*/
+  min-height:50px;
+  background-color:#000;
+  color:white;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+}
+
+#topTitle{
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+}
+
+#navBar{
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+#navBar a{
+  text-decoration:none;
+  color:white;
+}
+
+#navBar a:hover{
+  font-size:125%;
+  transition:all 0.3s;
+}
+
+#navOption{
+  height:50px;
+  min-width:200px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.mainArea{
+  min-height:calc(100% - 100px);
+  padding:15px;
+  background-color:#ccc;
+}
+
+footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:50px;
+  background-color:#000;
+  color:white;
+}

@@ -1,0 +1,20 @@
+#proName{
+  height:100px;
+  font-size:50px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+#medalStorage{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:200px;
+  background-color:#aaa;
+}
+
+#medalStorage img{
+  max-height:170px;
+  margin:15px;
+}
